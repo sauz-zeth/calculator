@@ -6,6 +6,8 @@
     --blue: #ceefff;
     --dark-blue: #4bb7e6;
 
+    --hover: #e0f6ff;
+
     --light-brown: #7b594e;
     --brown: #662a08;
     --dark-brown: #41080f;
@@ -26,12 +28,24 @@ body {
     align-items: center;
     height: 100vh;
     border: none;
+    background-color: var(--hover);
+
+    /* Устанавливаем фон */
+    background-image: url('background.png'); /* Замените на ваш путь */
+
+    /* Параметры отображения фона */
+    background-size: cover; /* Фон растягивается по всему экрану */
+    background-position: center center; /* Центрируем изображение */
+    background-repeat: no-repeat; /* Отключаем повторение */
+    height: 100vh; /* Высота страницы — 100% окна */
+    margin: 0;
 }
 
 #calc-body {
     z-index: 0;
     position: relative;
     border: none;
+
 }
 
 #calculator {
@@ -54,6 +68,7 @@ body {
     border-radius: 20px;
     background-color: var(--dark-pink);
     border: 2px solid;
+    box-shadow: 0px 0px 30px #ff9dc8; /* Смещение X, смещение Y, размытие, цвет */
 }
 
 #display-body {
@@ -85,17 +100,18 @@ input {
     border: none;
     background-color: var(--light-blue);
     width: 395px;
+    text-align: right;
 }
 
 #equation {
     color: var(--light-brown);
     font-size: 25px;
-    text-align: right;
+    font-weight: 500;
+    font-stretch: ultra-expanded;
 }
 
 #answer {
     font-size: 65px;
-    text-align: right;
 }
 
 #keys {
@@ -107,46 +123,48 @@ input {
     position: relative;
     z-index: 0;
 }
-
-button {
-    height: 100px;
-    width: auto;
-    aspect-ratio: 1/1;
-    border-radius: 15px;
-    font-size: 50px;
-    background-color: var(--blue);
+.button-container {
     position: relative;
-
-    transition: background-color 0.3s ease, color 0.3s ease;
-    transition: transform 0.2s ease;
-
-    cursor: pointer;
-}
-
-button::after {
+    display: inline-block;
+    border: none;
+  }
+  
+  .button-bg {
     position: absolute;
-    content: "";
-
     left: 3px;
     top: 3px;
     
     width: 100%;
     height: 100%;
-    z-index: -1;
-
+    z-index: -2;
     border-radius: 15px;
     background-color: var(--dark-blue);
     border: 2px solid;
-}
+    z-index: 1;
+    box-shadow: 0px 0px 15px #d45c91; /* Смещение X, смещение Y, размытие, цвет */
+  }
+  
+  .button {
+    position: relative;
+    z-index: 2;
+    height: 100px;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    font-size: 45px;
+    background-color: var(--blue);
 
-#zero {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+    #zero {
     grid-column: 1 / span 2;
     grid-row: 5;
     width: 215px;
-}
+    }
 
-button:hover {
-    background-color: var(--light-blue);
+.button:hover {
+    background-color: var(--hover);
 }
 
 button:active {

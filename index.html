@@ -13,6 +13,8 @@
   </head>
   <body>
 
+    
+
     <div id="calc-body">
 
       <div id="calculator">
@@ -25,25 +27,82 @@
         </div>
       
         <div id="keys">
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button>9</button>
-          <button id="zero">0</button>
-          <button>9</button>
-          <button>9</button>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="clearDisplay()" class="button">C</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="changeSign()" class="button">+/-</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('%')" class="button">%</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('÷')" class="button">÷</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('7')" class="button">7</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('8')" class="button">8</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('9')" class="button">9</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('×')" class="button">×</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('4')" class="button">4</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('5')" class="button">5</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('6')" class="button">6</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('-')" class="button">-</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('1')" class="button">1</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('2')" class="button">2</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('3')" class="button">3</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('+')" class="button">+</button>
+          </div>
+          <div class="button-container" id="zero">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('0')" class="button" id="zero">0</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="appendToDisplay('.')" class="button">.</button>
+          </div>
+          <div class="button-container">
+            <div class="button-bg"></div>
+            <button onclick="calculate()" class="button">=</button>
+          </div>
         </div>
       </div>
     </div>
