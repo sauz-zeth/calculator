@@ -38,6 +38,7 @@ function deleteSymbol() {
 }
 
 function formatNumber(num) {
+    if (num == 0) {return num};
     if (Math.abs(num) < 1e-5 || Math.abs(num) >= 1e6) {
         return num.toExponential(5);
     } else {
