@@ -18,6 +18,9 @@ window.addEventListener("load", () => {
     localStorage.setItem("d_display_value", d_display.value);
   }
 
+  u_display.addEventListener("input", saveToLocalStorage);
+  d_display.addEventListener("input", saveToLocalStorage);
+
 function appendToDisplay(input) {
     d_display.value += input;
     saveToLocalStorage();
