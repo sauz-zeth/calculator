@@ -107,7 +107,7 @@ input {
     color: var(--light-brown);
     font-size: 25px;
     font-weight: 500;
-    font-stretch: ultra-expanded;
+    
 }
 
 #answer {
@@ -153,6 +153,7 @@ input {
     font-size: 45px;
     background-color: var(--blue);
 
+    -webkit-tap-highlight-color: transparent;
     transition: transform 0.2s ease, background-color 0.3s ease;
     cursor: pointer;
   }
@@ -163,6 +164,10 @@ input {
     width: 215px;
     }
 
+    #delete {
+        border: none;
+    }
+    
 .button:hover {
     background-color: var(--hover);
 }
