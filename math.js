@@ -1,79 +1,77 @@
 function math_calc(expression) {
-    function operate(operand1, operand2, operator) {
-        switch (operator) {
-            case '+':
-                return operand1 + operand2;
-            case '-':
-                return operand1 - operand2;
-            case '*':
-                return operand1 * operand2;
-            case '/':
-                if (operand2 !== 0) {
-                    return operand1 / operand2;
-                } else {
-                    throw new Error("Division by zero");
-                }
-            case '%':
-                return operand1 % operand2;
-            default:
-                throw new Error("Unsupported operator: " + operator);
-        }
-    }
+    // Удаляем все пробелы
+    expression = expression.replace(/\s+/g, '');
 
-    function parse(expression) {
-        expression = expression.replace(/\s+/g, '');
+    // Массивы для чисел и операторов
+    let numbers = [];
+    let operators = [];
+    let currentNumber = '';
 
-        let numbers = [];
-        let operators = [];
-        let num = '';
+    // Разбор строки
+    for (let i = 0; i < expression.length; i++) {
+        const char = expression[i];
 
-        for (let i = 0; i < expression.length; i++) {
-            const char = expression[i];
-
-            if (/\d|\./.test(char)) {
-                num += char;
-            } else {
-                if (num) {
-                    numbers.push(parseFloat(num));
-                    num = '';
-                }
-                operators.push(char);
+        // Проверяем унарный минус: если '-' стоит в начале выражения 
+        // или после другого оператора ( + - * / % ), то считаем его "унарным"
+        if (char === '-' && (i === 0 || /[+\-*/%]/.test(expression[i - 1]))) {
+            currentNumber = '-';
+        } 
+        // Если это цифра или точка - дописываем к текущему числу
+        else if (/\d|\./.test(char)) {
+            currentNumber += char;
+        } 
+        // Иначе (если символ - оператор), сохраняем число в массив, оператор - в другой
+        else {
+            if (currentNumber) {
+                numbers.push(parseFloat(currentNumber));
+                currentNumber = '';
             }
+            operators.push(char);
         }
-
-        if (num) {
-            numbers.push(parseFloat(num));
-        }
-
-        return { numbers, operators };
     }
 
-    function evaluate(numbers, operators) {
-        for (let i = 0; i < operators.length; i++) {
-            if (operators[i] === '*' || operators[i] === '/' || operators[i] === '%') {
-                const result = operate(numbers[i], numbers[i + 1], operators[i]);
-                numbers[i] = result;
-                numbers.splice(i + 1, 1);
-                operators.splice(i, 1);
-                i--;
-            }
-        }
-
-        let result = numbers[0];
-        for (let i = 0; i < operators.length; i++) {
-            result = operate(result, numbers[i + 1], operators[i]);
-        }
-
-        return result;
+    // Добавляем последнее число, если оно накопилось
+    if (currentNumber) {
+        numbers.push(parseFloat(currentNumber));
     }
 
-    const { numbers, operators } = parse(expression);
+    // Сначала обрабатываем операции высшего приоритета: * / %
+    for (let i = 0; i < operators.length; i++) {
+        if (operators[i] === '*' || operators[i] === '/' || operators[i] === '%') {
+            const result = operate(numbers[i], numbers[i + 1], operators[i]);
+            numbers[i] = result;
+            numbers.splice(i + 1, 1);
+            operators.splice(i, 1);
+            i--;
+        }
+    }
+
+    // Затем обрабатываем + и -
+    let result = numbers[0];
+    for (let i = 0; i < operators.length; i++) {
+        result = operate(result, numbers[i + 1], operators[i]);
+    }
+
+    // Проверяем результат
+    if (isNaN(result)) {
+        throw new Error("Результат не является числом");
+    }
+    return result;
     
-    answer = evaluate(numbers, operators);
-    if (isNaN(answer)) {
-        throw new Error();
-    } 
-    else {
-        return answer;
+    // Функция для арифметических операций
+    function operate(a, b, op) {
+        switch (op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/':
+                if (b === 0) {
+                    throw new Error("Деление на ноль");
+                }
+                return a / b;
+            case '%': return a % b;
+            default:
+                throw new Error("Неизвестный оператор: " + op);
+        }
     }
 }
