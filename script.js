@@ -72,6 +72,7 @@ function stringify(display_value) {
     s = s.replace('÷', '/');
     s = s.replace('×', '*');
     s = s.replace(':', '/');
+    s = s.replace(',', '.');
     return s
 }
 

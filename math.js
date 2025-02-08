@@ -70,7 +70,6 @@ function math_calc(expression) {
     const { numbers, operators } = parse(expression);
     
     answer = evaluate(numbers, operators);
-    console.log(answer);
     if (isNaN(answer)) {
         throw new Error();
     } 
