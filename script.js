@@ -55,13 +55,17 @@ function deleteSymbol() {
 }
 
 function formatNumber(num) {
-    if(String(num).length > display_size) {
+    s = String(num);
+
+    if(s.length > display_size) {
         if(num >= 10 ** display_size) {
-            return num.toExponential(display_size - 4 - String(num).split('+')[1].length);
+            if (s.includes('e')) {
+                return num.toExponential(display_size - 4 - String(num).split('+')[1].length);
+            } else {
+                return num.toExponential(display_size - 4 - String(s.length).length);
+            }
         }
-        else {
-            return num.toPrecision(display_size - 3);
-        }
+        return num.toPrecision(display_size - 3);
     }
     return num;
 }
