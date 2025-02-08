@@ -1,28 +1,43 @@
 const u_display = document.getElementById("equation")
 const d_display = document.getElementById("answer")
+const operators = "+-×÷%";
+
+const display = {
+    equationElement: document.getElementById("equation"),
+    answerElement:  document.getElementById("answer")
+}
 
 window.addEventListener("load", () => {
-    const u_display_saved = localStorage.getItem("u_display_value");
-    const d_display_saved = localStorage.getItem("d_display_value");
+    const displaySaved = {
+        equation: localStorage.getItem("equation"),
+        answer: localStorage.getItem("answer"),
+    }
 
-    if (u_display_saved !== null) {
-      u_display.value = u_display_saved;
+    if (displaySaved.equation) {
+        display.equationElement.value = displaySaved.equation;
     }
-    if (d_display_saved !== null) {
-      d_display.value = d_display_saved;
+
+    if (displaySaved.answer) {
+        display.answerElement.value = displaySaved.answer;
     }
+
   });
 
   function saveToLocalStorage() {
-    localStorage.setItem("u_display_value", u_display.value);
-    localStorage.setItem("d_display_value", d_display.value);
+    localStorage.setItem("equation", display.equationElement.value);
+    localStorage.setItem("answer", display.answerElement.value);
   }
 
-  u_display.addEventListener("input", saveToLocalStorage);
-  d_display.addEventListener("input", saveToLocalStorage);
+  display.equationElement.addEventListener("input", saveToLocalStorage);
+  display.answerElement.addEventListener("input", saveToLocalStorage);
 
 function appendToDisplay(input) {
-    d_display.value += input;
+    if(operators.includes(d_display.value.at(-1)) && operators.includes(input)) {
+        d_display.value = d_display.value.slice(0, -1) + input;
+    }
+    else {
+        d_display.value += input;
+    }
     saveToLocalStorage();
 }
 
@@ -42,7 +57,7 @@ function formatNumber(num) {
     if (Math.abs(num) < 1e-5 || Math.abs(num) >= 1e6) {
         return num.toExponential(5);
     } else {
-        return parseFloat(num.toPrecision(8)).toString();
+        return parseFloat(num.toPrecision(7)).toString();
     }
 }
 
@@ -50,6 +65,7 @@ function stringify(display_value) {
     let s = String(display_value);
     s = s.replace('÷', '/');
     s = s.replace('×', '*');
+    s = s.replace(':', '/');
     return s
 }
 
@@ -65,3 +81,20 @@ function calculate() {
     }
     saveToLocalStorage();
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        calculate()
+    }
+});
+
+//TODO: функцию, чтобы можно было ввести только один знак
+//TODO: добавить : в реплейс
+
+//TDOD: написать в ридми что есть рукописный ввод,
+// и что есть функция одного знака
+
+//TODO: исправить код
+// написать что процент выполняет функцию остатка от деления как в калькуляторе от apple
+
+//TODO: сделать выполнение calculate на enter
