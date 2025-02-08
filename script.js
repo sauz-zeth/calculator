@@ -55,10 +55,9 @@ function deleteSymbol() {
 }
 
 function formatNumber(num) {
-    const l = String(num).length;
     if(String(num).length > display_size) {
         if(num >= 10 ** display_size) {
-            return num.toExponential(display_size - 4 - String(l).length);
+            return num.toExponential(display_size - 4 - String(num).split('+')[1].length);
         }
         else {
             return num.toPrecision(display_size - 3);
