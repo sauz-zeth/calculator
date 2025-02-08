@@ -11,16 +11,27 @@ function math_calc(expression) {
     for (let i = 0; i < expression.length; i++) {
         const char = expression[i];
 
-        // Проверяем унарный минус: если '-' стоит в начале выражения 
-        // или после другого оператора ( + - * / % ), то считаем его "унарным"
-        if (char === '-' && (i === 0 || /[+\-*/%]/.test(expression[i - 1]))) {
-            currentNumber = '-';
-        } 
-        // Если это цифра или точка - дописываем к текущему числу
-        else if (/\d|\./.test(char)) {
+        // Проверяем унарный минус (или плюс): если символ стоит в начале
+        // или после оператора (+ - * / %), но не после e/E
+        if (
+            (char === '-' || char === '+') &&
+            (i === 0 || /[+\-*/%]/.test(expression[i - 1])) &&
+            !/[eE]/.test(expression[i - 1])
+        ) {
+            currentNumber = char; 
+        }
+        // Если это цифра, точка или e/E – добавляем к текущему числу
+        else if (/\d|\.|e|E/.test(char)) {
             currentNumber += char;
-        } 
-        // Иначе (если символ - оператор), сохраняем число в массив, оператор - в другой
+        }
+        // Если это + или - сразу после e/E – тоже часть числа (знак степени)
+        else if (
+            (char === '+' || char === '-') &&
+            i > 0 && /[eE]/.test(expression[i - 1])
+        ) {
+            currentNumber += char;
+        }
+        // Иначе (встретили «настоящий» оператор) – сохраняем текущее число и оператор
         else {
             if (currentNumber) {
                 numbers.push(parseFloat(currentNumber));

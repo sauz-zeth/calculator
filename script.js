@@ -85,6 +85,7 @@ function calculate() {
         u_display.value = dvalue;
     } catch (error) {
        u_display.value = 'error'; 
+       console.log(error);
     }
     saveToLocalStorage();
 }
