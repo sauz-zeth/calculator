@@ -101,6 +101,7 @@ input {
     background-color: var(--light-blue);
     width: 395px;
     text-align: right;
+    overflow-x: auto; /* Горизонтальная прокрутка при переполнении */
 }
 
 #equation {
