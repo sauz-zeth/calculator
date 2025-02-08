@@ -11,7 +11,7 @@ function math_calc(expression) {
                 if (operand2 !== 0) {
                     return operand1 / operand2;
                 } else {
-                    throw new Error("Division by zero is not allowed.");
+                    throw new Error("Division by zero");
                 }
             case '%':
                 return operand1 % operand2;
@@ -68,5 +68,13 @@ function math_calc(expression) {
     }
 
     const { numbers, operators } = parse(expression);
-    return evaluate(numbers, operators);
+    
+    answer = evaluate(numbers, operators);
+    console.log(answer);
+    if (isNaN(answer)) {
+        throw new Error();
+    } 
+    else {
+        return answer;
+    }
 }
