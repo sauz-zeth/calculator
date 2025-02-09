@@ -28,16 +28,13 @@ body {
     align-items: center;
     height: 100vh;
     border: none;
+
     background-color: var(--hover);
-
-    /* Устанавливаем фон */
-    background-image: url('background.png'); /* Замените на ваш путь */
-
-    /* Параметры отображения фона */
-    background-size: cover; /* Фон растягивается по всему экрану */
-    background-position: center center; /* Центрируем изображение */
-    background-repeat: no-repeat; /* Отключаем повторение */
-    height: 100vh; /* Высота страницы — 100% окна */
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
     margin: 0;
 }
 
@@ -68,7 +65,7 @@ body {
     border-radius: 20px;
     background-color: var(--dark-pink);
     border: 2px solid;
-    box-shadow: 0px 0px 30px #ff9dc8; /* Смещение X, смещение Y, размытие, цвет */
+    box-shadow: 0px 0px 30px #ff9dc8;
 }
 
 #display-body {
@@ -101,7 +98,7 @@ input {
     background-color: var(--light-blue);
     width: 395px;
     text-align: right;
-    overflow-x: auto; /* Горизонтальная прокрутка при переполнении */
+    overflow-x: auto;
 }
 
 #equation {
@@ -142,7 +139,7 @@ input {
     background-color: var(--dark-blue);
     border: 2px solid;
     z-index: 1;
-    box-shadow: 0px 0px 15px #d45c91; /* Смещение X, смещение Y, размытие, цвет */
+    box-shadow: 0px 0px 15px #d45c91;
   }
   
   .button {
