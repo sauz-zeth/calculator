@@ -55,19 +55,21 @@ function deleteSymbol() {
 }
 
 function formatNumber(num) {
-    s = String(num);
-
-    if(s.length > display_size) {
-        if(num >= 10 ** display_size) {
-            if (s.includes('e')) {
-                return num.toExponential(display_size - 4 - String(num).split('+')[1].length);
-            } else {
-                return num.toExponential(display_size - 4 - String(s.length).length);
-            }
-        }
-        return num.toPrecision(display_size - 3);
+    let s = String(num);
+    
+    if (s.length <= display_size) {
+        return s;
     }
-    return num;
+
+    for (let i = display_size; i >= 1; i--) {
+        str = num.toPrecision(i);
+        if (str.length <= display_size) {
+            return str;
+        }
+    }
+
+    console.log("string format error");
+    return s;
 }
 
 function stringify(display_value) {
@@ -84,6 +86,7 @@ function calculate() {
 
     dvalue = d_display.value;
     try {
+        console.log(math_calc(s));
         d_display.value = formatNumber(math_calc(s));
         u_display.value = dvalue;
     } catch (error) {
