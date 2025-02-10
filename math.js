@@ -1,6 +1,6 @@
 function math_calc(expression) {
     // Удаляем все пробелы
-
+    expression = expression.replace(/\s+/g, '');
 
     // Массивы для чисел и операторов
     let numbers = [];

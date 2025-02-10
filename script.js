@@ -77,10 +77,16 @@ function formatNumber(num) {
     }
 
     // Уменьшаем точность числа, пока оно не уместится в заданный размер
+    
     for (let i = display_size; i >= 1; i--) {
         str = num.toPrecision(i);
         if (str.length <= display_size) {
-            return str;
+            if(num >= 10 ** display_size) {
+                return str;
+            }
+            else {
+                return parseFloat(str)
+            }
         }
     }
 
