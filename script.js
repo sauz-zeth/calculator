@@ -2,7 +2,7 @@
 const u_display = document.getElementById("equation");
 const d_display = document.getElementById("answer");
 
-const operators = "+-×÷%";
+const operators = "+-×÷%.";
 const display_size = 10;
 
 // Объект для работы с элементами отображения
@@ -104,7 +104,6 @@ function calculate() {
     dvalue = d_display.value;
     try {
         // Вычисляем значение выражения с использованием math_calc
-        console.log(math_calc(s));
         d_display.value = formatNumber(math_calc(s));  // Форматируем результат перед отображением
         u_display.value = dvalue;  // Сохраняем выражение в дисплей выражения
     } catch (error) {

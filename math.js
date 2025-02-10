@@ -1,6 +1,6 @@
 function math_calc(expression) {
     // Удаляем все пробелы
-    expression = expression.replace(/\s+/g, '');
+
 
     // Массивы для чисел и операторов
     let numbers = [];
@@ -10,28 +10,37 @@ function math_calc(expression) {
     // Разбор строки
     for (let i = 0; i < expression.length; i++) {
         const char = expression[i];
-
-        // Проверяем унарный минус (или плюс): если символ стоит в начале
-        // или после оператора (+ - * / %), но не после e/E
-        if (
-            (char === '-' || char === '+') &&
-            (i === 0 || /[+\-*/%]/.test(expression[i - 1])) &&
-            !/[eE]/.test(expression[i - 1])
-        ) {
-            currentNumber = char; 
+        const prevChar = i > 0 ? expression[i - 1] : null;
+    
+        if (char === '+' || char === '-') {
+            // Проверяем, не является ли это знаком в степени (после e/E):
+            if (prevChar === 'e' || prevChar === 'E') {
+                // Это часть числа (знак степени)
+                currentNumber += char; 
+            }
+            // Если это первый символ строки или следует сразу за оператором,
+            // считаем, что это унарный знак
+            else if (
+                i === 0 
+                || /[+\-*/%]/.test(prevChar) // можно расширять (добавить (, ^ и т.п.)
+            ) {
+                // Начинаем новое (унарное) число
+                currentNumber = char; 
+            } 
+            // Иначе — это обычный (бинарный) оператор
+            else {
+                if (currentNumber) {
+                    numbers.push(parseFloat(currentNumber));
+                    currentNumber = '';
+                }
+                operators.push(char);
+            }
         }
-        // Если это цифра, точка или e/E – добавляем к текущему числу
+        // Если цифра / точка / e / E — продолжаем «накапливать» число:
         else if (/\d|\.|e|E/.test(char)) {
             currentNumber += char;
         }
-        // Если это + или - сразу после e/E – тоже часть числа (знак степени)
-        else if (
-            (char === '+' || char === '-') &&
-            i > 0 && /[eE]/.test(expression[i - 1])
-        ) {
-            currentNumber += char;
-        }
-        // Иначе (встретили «настоящий» оператор) – сохраняем текущее число и оператор
+        // Иначе — какой-то оператор (* / % …)
         else {
             if (currentNumber) {
                 numbers.push(parseFloat(currentNumber));
@@ -40,6 +49,7 @@ function math_calc(expression) {
             operators.push(char);
         }
     }
+    
 
     // Добавляем последнее число, если оно накопилось
     if (currentNumber) {
